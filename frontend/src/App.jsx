@@ -14,6 +14,7 @@ import EmployeeList from "./pages/EmployeeList";
 import Profile from "./pages/Profile";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
+import ErrorPage from "./pages/Error";
 
 function App() {
 	return (
@@ -71,6 +72,8 @@ function App() {
 						</ProtectedRoute>
 					}
 				/>
+
+				<Route path="*" element={<ErrorPage />}/>
 			</Routes>
 		</Router>
 	);
