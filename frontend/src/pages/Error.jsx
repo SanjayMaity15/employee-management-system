@@ -9,7 +9,7 @@ const ErrorPage = ({
 	const navigate = useNavigate();
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4">
+		<div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-100 to-gray-200 px-4">
 			<div className="bg-white shadow-xl rounded-2xl p-8 max-w-md w-full text-center">
 				{/* Icon */}
 				<div className="flex justify-center mb-4">
@@ -28,7 +28,9 @@ const ErrorPage = ({
 				<div className="flex justify-center gap-4">
 					<button
 						onClick={() => navigate(-1)}
-						className="flex items-center gap-2 px-4 py-2 border border-gray-500 text-gray-700 rounded-lg hover:bg-gray-100 transition"
+						className="flex items-center gap-2 px-5 py-2 rounded-lg
+                                bg-red-200 text-red-700 border border-red-600
+                                hover:bg-red-300 transition font-medium cursor-pointer"
 					>
 						<FaArrowLeft />
 						Go Back
