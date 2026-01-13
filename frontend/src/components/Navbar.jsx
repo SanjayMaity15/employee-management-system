@@ -13,9 +13,12 @@ const Navbar = () => {
 
 	return (
 		<nav className="bg-gray-900 text-white px-6 py-3 flex justify-between items-center sticky top-0">
-            <Link className="text-2xl tracking-wider font-bold"
-            to={"/dashboard"}
-            >StaffSync</Link>
+			<Link
+				className="text-2xl tracking-wider font-bold"
+				to={"/dashboard"}
+			>
+				StaffSyncsm
+			</Link>
 
 			<button
 				onClick={handleLogout}
