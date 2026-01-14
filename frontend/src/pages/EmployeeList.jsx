@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const EmployeeList = () => {
 	const { user } = useContext(AuthContext);
+	const [loading, setLoading] = useState(false)
 	const [employees, setEmployees] = useState([]);
 	const [form, setForm] = useState({
 		name: "",
@@ -40,19 +41,24 @@ const EmployeeList = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true)
 		try {
 			if (editingId) {
 				await API.put(`/employees/${editingId}`, form);
 				toast.success("Employee updated!");
 				setEditingId(null);
+				
 			} else {
 				await API.post("/employees", form);
 				toast.success("Employee added!");
+				
 			}
 			setForm({ name: "", email: "", designation: "", department: "" });
 			fetchEmployees();
+			setLoading(false);
 		} catch (err) {
 			toast.error("Operation failed");
+			setLoading(false);
 		}
 	};
 
@@ -143,7 +149,9 @@ const EmployeeList = () => {
                                 bg-green-100 text-green-700 border border-green-600
                                 hover:bg-green-200 transition font-medium w-full"
 						>
-							{editingId ? "Update Employee" : "Add Employee"}
+							{
+								loading ? "Please wait..." : (editingId ? "Update Employee" : "Add Employee")
+							}
 						</button>
 					</form>
 				)}
