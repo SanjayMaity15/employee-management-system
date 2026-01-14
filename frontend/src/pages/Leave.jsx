@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 const Leave = () => {
     const { user } = useContext(AuthContext);
-        const navigate = useNavigate();
+	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false)
 
 	const [leaves, setLeaves] = useState([]);
 	const [editingLeaveId, setEditingLeaveId] = useState(null);
@@ -54,7 +55,7 @@ const Leave = () => {
 	/* ================= APPLY LEAVE ================= */
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
+		setLoading(true)
 		try {
 			await API.post("/leave", {
 				startDate: formData.fromDate,
@@ -64,9 +65,11 @@ const Leave = () => {
 
 			toast.success("Leave applied successfully!");
 			setFormData({ fromDate: "", toDate: "", reason: "" });
+			setLoading(false)
 			fetchLeaves();
 		} catch (err) {
 			toast.error(err.response?.data?.message || "Something went wrong");
+			setLoading(false)
 		}
 	};
 
@@ -130,7 +133,7 @@ const Leave = () => {
                                 bg-green-100 text-green-700 border border-green-600
                                 hover:bg-green-200 transition font-medium w-full mt-6"
 						>
-							Apply Leave
+							{loading ? "Applying..." : "Apply Leaveg"}
 						</button>
 					</form>
 				)}

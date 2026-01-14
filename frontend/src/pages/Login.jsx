@@ -10,12 +10,14 @@ import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
 	const { login } = useContext(AuthContext);
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false)
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true)
 
 		try {
 			const res = await API.post("/auth/login", { email, password });
@@ -23,11 +25,12 @@ const Login = () => {
 			// Save token
 			localStorage.setItem("token", res.data.token);
 			login(res.data.user);
-
+			setLoading(false)
 			toast.success("Login Successful!");
 			navigate("/dashboard");
 		} catch (err) {
 			toast.error(err.response?.data?.message || "Login failed");
+			setLoading(false)
 		}
 	};
 
@@ -58,8 +61,9 @@ const Login = () => {
 					className="px-5 py-2 rounded-lg w-full
                                 bg-indigo-100 text-indigo-700 border border-indigo-600
                                 hover:bg-indigo-200 transition font-medium"
+					disabled={loading}
 				>
-					Login
+					{loading ? "Login..." : "Login"}
 				</button>
 			</form>
 		</div>
